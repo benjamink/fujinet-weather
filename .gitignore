@@ -51,4 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# FujiNet build files
+dist/
+obj/
 apple-tools/
