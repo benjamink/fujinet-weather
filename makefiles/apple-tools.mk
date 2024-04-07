@@ -1,4 +1,4 @@
-APPLE_TOOLS_VERSION := 0.0.2
+APPLE_TOOLS_VERSION := 0.0.3
 
 APPLE_TOOLS_PATH = apple-tools
 APPLE_TOOLS_DOWNLOAD_FILE = apple-tools.zip
@@ -6,8 +6,7 @@ APPLE_TOOLS_DOWNLOAD_URL = https://github.com/benjamink/fujinet-apple-tools/rele
 
 get_apple_tools:
 	@if [ ! -f "$(APPLE_TOOLS_PATH)/cur-version-$(APPLE_TOOLS_VERSION)" ]; then \
-		HTTPSTATUS=$$(curl -Is $(APPLE_TOOLS_DOWNLOAD_URL) | head -n 1 | awk '(print $$2)'); \
-		if [ "$$(HTTPSTATUS)" == "404" ]; then \
+		if [ "$$(curl -Is $(APPLE_TOOLS_DOWNLOAD_URL) | head -n 1 | awk '{print $$2}')" == "404" ]; then \
 			echo "ERROR: Unable to find file $(APPLE_TOOLS_DOWNLOAD_URL)"; \
 			exit 1; \
 		fi; \

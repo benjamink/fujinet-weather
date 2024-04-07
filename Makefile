@@ -8,8 +8,8 @@
 TARGETS = atari apple2
 PROGRAM := weather
 
-SUB_TASKS := build clean disk test get_fujinet_lib get_apple_tools 
-.PHONY: all $(SUB_TASKS) 
+SUB_TASKS := build clean disk test 
+.PHONY: all $(SUB_TASKS) get_fujinet_lib get_apple_tools
 
 all:
 	@for target in $(TARGETS); do \

@@ -158,7 +158,7 @@ atr: dist
 	$(call RMFILES,dist/*.atr)
 	dir2atr -S dist/$(PROGRAM).atr dist/atr
 
-po: dist
+po: dist get_apple_tools
 	$(call RMFILES,dist/$(APP_NAME)*.po)
 	cp dist/$(PROGRAM_TGT).com dist/$(PROGRAM)
 	$(APPLE_TOOLS_DIR)/mk-bitsy.sh dist/$(PROGRAM).po TEST_$(PROGRAM)
