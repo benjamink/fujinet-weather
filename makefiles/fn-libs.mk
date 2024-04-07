@@ -26,5 +26,5 @@ get_fujinet_lib:
 		echo "Unzip complete."; \
 	fi
 
-CFLAGS += --include-dir ${FUJINET_LIB_VERSION_DIR}
+CFLAGS += --include-dir $(FUJINET_LIB_VERSION_DIR)
 LIBS += $(FUJINET_LIB_PATH)
