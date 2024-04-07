@@ -27,3 +27,4 @@ get_fujinet_lib:
 	fi
 
 CFLAGS += --include-dir ${FUJINET_LIB_VERSION_DIR}
+LIBS += $(FUJINET_LIB_PATH)
