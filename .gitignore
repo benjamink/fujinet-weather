@@ -54,4 +54,5 @@ dkms.conf
 # FujiNet build files
 dist/
 obj/
+build/
 apple-tools/
