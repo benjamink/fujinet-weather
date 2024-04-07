@@ -12,6 +12,8 @@
 char *apiToken = "a2f6f4f587f6465a9af00744242403";
 char *api = "n:https://api.weatherapi.com/v1/";
 
+char *ipLocationUrl = "https://ipconfig.io/json";
+
 char url_buffer[256];
 char result[1024];
 uint8_t err = 0;
@@ -21,15 +23,14 @@ uint8_t connected;
 uint8_t conn_err;
 uint8_t trans_type = OPEN_TRANS_CRLF;
 
-char *location = "18976";
+char *location;
 
 void debug() {}
 
 int main(void)
 {
   setup();
-  start_get();
-
+  get_location();
   printf("Press a key to exit.");
   cgetc();
   printf("\n");
@@ -49,11 +50,6 @@ void setup() {
 #endif 
 }
 
-char *create_url(char *query) {
-  sprintf(url_buffer, "%s?q=%s&key=%s%s", api, query, apiToken);
-  return (char *)url_buffer;
-}
-
 void handle_err(char *reason)
 {
   if (err)
@@ -64,13 +60,47 @@ void handle_err(char *reason)
   }
 }
 
-void start_get() {
-  url = create_url(location);
-  err = network_open(url, OPEN_MODE_HTTP_GET, trans_type);
+void open(char *u)
+{
+  url = u;
+  err = network_open(url, OPEN_MODE_HTTP_GET, OPEN_TRANS_NONE);
   handle_err("open");
+}
+
+void close()
+{
+  err = network_close(url);
+  handle_err("close");
+}
+
+void open_and_parse_json(char *u)
+{
+  url = u;
+  open(url);
 
   err = network_json_parse(url);
   handle_err("parse");
+}
 
-  printf("URL: %s\n", url);
+char *json_query(char *path)
+{
+  int count = 0;
+  count = network_json_query(url, path, result);
+  if (count < 0)
+  {
+    err = -count;
+    handle_err("query");
+  }
+
+  printf("Querying URL: %s for path %s\n", url, path);
+  printf("Result of path %s is %s\n", path, result);
+
+  return result;
+}
+
+void get_location()
+{
+  open_and_parse_json(ipLocationUrl);
+  printf("Your zip code is: %s\n", json_query("zip"));
+  close();
 }

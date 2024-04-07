@@ -7,8 +7,7 @@ char *create_url(char *method);
 void handle_err(char *reason);
 
 void setup();
-void start_get();
-void get_current();
+void get_location();
 
 #ifdef BUILD_APPLE2
 extern uint8_t sp_network;
