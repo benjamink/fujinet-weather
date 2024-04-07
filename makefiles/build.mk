@@ -10,6 +10,10 @@
 -include makefiles/os.mk
 -include makefiles/fn-libs.mk
 
+ifeq ($(CURRENT_PLATFORM),apple2)
+-include makefiles/apple-tools.mk
+endif 
+
 APPLE_TOOLS_DIR := ./apple-tools
 
 CC := cl65
